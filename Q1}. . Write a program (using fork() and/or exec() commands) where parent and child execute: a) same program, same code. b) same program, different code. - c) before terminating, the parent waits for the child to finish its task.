@@ -1,0 +1,130 @@
+//. Write a program (using fork() and/or exec() commands) where parent and child execute: a)
+//same program, same code. b) same program, different code. - c) before terminating, the parent
+//waits for the child to finish its task.
+
+
+//same program same code  1st part
+
+#include<sys/types.h>
+#include<stdio.h>
+#include<unistd.h>
+
+int main(){
+
+
+
+//parent and child execute a) same program , same code
+
+pid_t pid1;
+pid1 = fork(); // child process
+
+int sum=0;
+for(int i=1;i<=10;++i){
+sum +=i;
+}
+
+printf("sum = ");// will be printed by both child and parent
+printf("%d",sum);
+
+
+return 0;
+}
+
+// //////////////////////////////////////////////////////same program different code 2nd part
+#include<sys/types.h>
+#include<stdio.h>
+#include<unistd.h>
+
+int main(){
+
+
+
+//parent and child execute a) same program , different code
+
+pid_t pid1;
+pid1 = fork(); // child process
+
+int sum=0;
+if(pid1==0){              //in child process
+printf("\n");
+printf("in child proces...\n");
+
+for(int i=1;i<=5;++i){
+printf("%d",i);
+printf("  ");
+
+}
+printf("\n");
+}
+
+if(pid1 !=0){                 //in parent process
+printf("\n");
+printf("in parent process \n");
+
+for(int i=6;i<=10;++i){
+printf("%d",i);
+printf("  ");
+}
+}
+
+
+return 0;
+}
+
+/////////////////////////////////////////// 3rd part before terminating the parent wait for its child to finish
+#include<sys/types.h>
+#include<sys/wait.h>
+
+#include<stdio.h>
+#include<unistd.h>
+#include<time.h>
+#include<stdlib.h>
+
+
+
+int main(){
+
+
+
+//parent and child execute a) before terminating , the parent waits for the child to finish its task
+
+pid_t pid1;
+pid1 = fork(); // child process
+
+int sum=0;
+
+
+if(pid1 !=0){
+
+//parent process
+
+//wait
+wait(NULL);
+//now parent can do some task
+
+printf("now parent can terinate");
+
+return 0;
+}
+
+
+
+
+if(pid1==0){
+//in child process
+
+printf("child has begun its task");
+printf("\n");
+for(int i=5;i>=0;--i){
+
+for(int j=i;j>=0;--j){
+printf("*");
+}
+printf("\n");
+
+}
+}
+
+
+
+}
