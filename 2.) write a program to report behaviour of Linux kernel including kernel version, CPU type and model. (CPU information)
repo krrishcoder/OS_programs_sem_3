@@ -1,0 +1,19 @@
+#include <iostream>
+
+using namespace std;
+
+#include <stdlib.h>
+#include <stdio.h>
+
+int main()
+{
+
+
+
+cout<<" cpu type : ";
+system("cat /proc/cpuinfo | grep 'cpu family' | wc -l");
+cout<<" cpu model : "<<endl;
+system("cat /proc/cpuinfo | grep 'model name' | uniq");
+
+return 0;
+}
