@@ -9,6 +9,7 @@ int main()
 {
 
 
+system("cat /proc/version");
 
 cout<<" cpu type : ";
 system("cat /proc/cpuinfo | grep 'cpu family' | wc -l");
